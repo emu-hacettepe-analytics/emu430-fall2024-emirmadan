@@ -3,28 +3,35 @@ title: "About Me"
 sidebar: false 
 ---
 
+Buradan CV'me erişebilirsiniz. [CV](docs/CV_EMIR_MADAN.pdf)
+
 # Education
 
--   B.S., Industrial Engineering, Hacettepe University, Turkey, 20xx - ongoing.
+-   B.S., Industrial Engineering, Hacettepe University, Turkey, 2021 - ongoing.
 
 # Work Experience
 
 ## Employements
 
-1.  Firm xxx, position xx, year xxx
+1.  Marrakesh Cafe, Busser, 2018
 
-2.  Firm yyy, position yyy, year yyy
+2.  Baxter's Fish N Chips, Kitchen-Busser-Foodrunner-Barback, 2024
+
+3.  Black Cat Restaurant, Parking Lot Attendant, 2024
 
 ## Internships
 
-1.  Firm aaa, position xx, year xxx
-
-2.  Firm bbb, position yyy, year yyy
-
 # Projects
+
+# Voluenteer Experience
+
+1.  Cinema Society, Board Member and Short Movie Department, 2022
+2.  Cinema Society, Board Member and Social Media Department, 2023 - ongoing
 
 # Competencies
 
 R, Quarto, Git, Python
 
 # Hobbies
+
+Watching Movies and TV series, Photography, Digital Content Creating, Playing Video Games, Playing Football and Basketball

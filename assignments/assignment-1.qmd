@@ -4,12 +4,89 @@ title: "Assignment 1"
 
 # Assignment 1
 
-```{r}
-1 + 1
-```
-
 My first assignment has two parts.
 
 ## (a)
 
+I choose the Mustafa Baydoğan's video.
+
+Summary: The video generally focuses on data analysis and forecasting, which Mustafa Baydoğan is more interested in. He makes exemplary explanations regarding the predictions and accuracy of the predictions, especially in the fields of timber, electricity and retail. Some of the most important things I remember are that, leaving aside technical things, even if they are areas that you are not interested in, understanding the problem in data analysis is as important as solving it. He explains this and many other important things very well with daily life examples.
+
+Multiple choice question:
+
+Which of the following is not a step in the structured problem solving and data analysis process?
+
+A)Desicion
+
+B)Impact
+
+C)Solution Method
+
+D)Reaction
+
+E)Data
+
+Answer: D
+
+Open-ended question
+
+Do the predictions given to make a decision have to be absolutely accurate?(Yes or no and please explain it).
+
+Answer: No it doesn't have to be. The more accurate the prediction, the better, but we do not need 100% accuracy to make the right decision. Afterwards, we can make the right decisions with proper optimization.
+
 ## (b)
+
+Firstly I installed the dslabs.
+
+```{r}
+#install.packages(dslabs)
+```
+
+I opened the dslabs with the library command in my script.
+
+```{r}
+library(dslabs)
+```
+
+Secondly, I use the head(data, first x data set) to show the first 10 row of data set. (I use ChatGPT in this part to how to show first 10 row.)
+
+```{r}
+head(polls_us_election_2016,10)
+```
+
+Thirdly, I use cat function to print the total NA values in the entire data set. Normally I was using print but I was able to remove \[1\] with the cat function to make it look neater.(I use ChatGPT in this part to how to remove \[1\])
+
+```{r}
+cat("Total NA values:", sum(is.na(polls_us_election_2016)))
+```
+
+Fourthly, I use for loop,if statement and replace function to change the entire data set.(I mostly use ChatGPT in this part. At first, I wanted to do it with ifelse, as it was shown in the course slides, but I got an error such as converting characters to numbers in the columns of some data names. Then, although it could be done in other ways, I especially wanted to do it with the for loop, and this way it was more understandable and smooth in my eyes.)
+
+```{r}
+# get the column names in the data set.
+column_names <- names(polls_us_election_2016)
+
+# use for loop to change NA values
+for (column in column_names) {
+  if (is.numeric(polls_us_election_2016[[column]])) {
+    # change NA values with 2001 for numerical columns
+    polls_us_election_2016[[column]] <- replace(polls_us_election_2016[[column]], is.na(polls_us_election_2016[[column]]), 2001)
+    
+  } else if (is.character(polls_us_election_2016[[column]])) {
+    # change NA values with Emir for character columns
+    polls_us_election_2016[[column]] <- replace(polls_us_election_2016[[column]], is.na(polls_us_election_2016[[column]]), "Emir")
+    
+  } else if (is.factor(polls_us_election_2016[[column]])) {
+    # turn the factor columns into character and change NA values with Emir
+    polls_us_election_2016[[column]] <- as.character(polls_us_election_2016[[column]])
+    polls_us_election_2016[[column]] <- replace(polls_us_election_2016[[column]], is.na(polls_us_election_2016[[column]]), "Emir")
+    polls_us_election_2016[[column]] <- as.factor(polls_us_election_2016[[column]]) 
+  }
+}
+```
+
+Fifthly, I head the first 10 row of the data set again.
+
+```{r}
+head(polls_us_election_2016,10)
+```
