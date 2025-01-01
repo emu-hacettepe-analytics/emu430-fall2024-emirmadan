@@ -3,7 +3,235 @@ title: "Assignment 2"
 ---
 
 # Assignment 2
+#Code Chunk oluşturmaya çalışınca hata veriyor ve renderlamıyor o yüzden malesef burada kullanamadım.
+#2
+#Let's load libraries
+
+
+library(tidyverse)
+library(rvest)
+library(stringr)
+
+
+# URL's
+url1 <- "https://www.imdb.com/search/title/?title_type=feature&release_date=,2009-12-31&num_votes=2500,&country_of_origin=TR&count=250"
+url2 <- "https://www.imdb.com/search/title/?title_type=feature&release_date=2010-01-01,2023-12-31&num_votes=2500,&country_of_origin=TR&count=250"
+
+
+#The function the get the datas from URL'S
+
+#Function to get the datas from URL'S
+get_movies <- function(url) {
+  data_html <- read_html(url)
+Extract the datas with their CSS Selector. I found them with Inspect selection.(I tried SelectorGadget but it didn't work on IMDB site. I don't know the reason.)
+#Extract the titles
+  title_names <- data_html |> html_nodes('.ipc-title__text') |> html_text()
+  title_names <- tail(head(title_names,-1),-1)
+  title_names <- str_split(title_names, " ", n=2)
+  title_names <- unlist(lapply(title_names, function(x) {x[2]}))
+#Extract the year (same CSS Selector but extract the datas with four digits)
+  year <- data_html |> html_nodes('.sc-300a8231-7.eaXxft.dli-title-metadata-item') |> html_text()
+  year <- str_extract(year, "\\d{4}")
+  year <- year[!is.na(year)]
+  year <- as.numeric(year)
+
+# Extract the data with xh ym and xh. Also If there is no ym make the na value 0.  
+  duration <- data_html |> html_nodes('.sc-300a8231-7.eaXxft.dli-title-metadata-item') |> html_text()
+  duration <- str_extract(duration, "\\d+h \\d+m|\\d+h")
+  duration <- duration[!is.na(duration)]
+  hours <- as.numeric(str_extract(duration, "\\d+(?=h)"))
+  minutes <- as.numeric(str_extract(duration, "\\d+(?=m)"))
+  minutes[is.na(minutes)] <- 0
+  duration <- hours * 60 + minutes
+#Extract ratings and make them numeric.
+  rating <- data_html |> html_nodes('.ipc-rating-star--rating') |> html_text()
+  rating <- str_extract(rating, "\\d+(\\.\\d+)?")
+  rating <- as.numeric(rating)
+#Extract votes. Remove brackets, K letter and .(dot). After that make them numeric and multiple with 1000
+  vote <- data_html |> html_nodes('.ipc-rating-star--voteCount') |> html_text()
+  vote <- str_squish(vote)
+  vote <- str_remove_all(vote, "\\.")
+  vote <- str_remove(vote, "^\\(")
+  vote <- str_remove(vote, "\\)$")
+  vote <- str_replace(vote, "K$", "")
+  vote <- as.numeric(vote)
+  vote <- vote * 1000
+
+#Create data table with the vectors.
+  movies <- tibble(
+    Title = title_names,
+    Year = year,
+    Duration = duration,
+    Rating = rating,
+    Votes = vote
+  )
+  return(movies)
+}
+
+#We are using map_df to take the both URL'S and combine them
+movies_all <- map_df(c(url1, url2), get_movies)
+
+#Check first rows of data
+head(movies_all)
+
+
+3
+a
+# Sort data frame descending by Rating
+movies_sorted <- movies_all |> arrange(desc(Rating))
+
+# Show first and last 5 movies
+top_5 <- movies_sorted |> head(5)
+bottom_5 <- movies_sorted |> tail(5)
+
+print("Top 5 Movies:")
+print(top_5)
+
+print("Bottom 5 Movies:")
+print(bottom_5)
+#I watched Recep İvedik, Babam ve Oğlum and Hababam Sınıfı. I think Recep İvedik should have higher rating level instead of 4.9.
+
+b
+My favorites are: Babam ve Oğlum(23), A.R.O.G (120) and Her Şey Çok Güzel Olacak (30)
+
+c
+
+#Assuming movies_all contains your dataset, with columns Title, Year, Rating
+
+# Calculate the yearly rating averages
+movies_all <- movies_all %>%
+  group_by(Year) %>%
+  summarise(average_rating = mean(Rating, na.rm = TRUE))
+
+# Plot the average rating over the years using ggplot2
+ggplot(movies_all, aes(x = Year, y = average_rating)) +
+  geom_point() +
+  labs(title = "Average Movie Ratings Over the Years",
+       x = "Year", y = "Average Rating") +
+  theme_minimal()
+
+
+# Calculate the number of movies per year
+movies_per_year <- movies_all %>%
+  group_by(Year) %>%
+  summarise(number_of_movies = n())
+
+# Plot the number of movies over the years
+ggplot(movies_per_year, aes(x = Year, y = number_of_movies)) +
+  geom_point(color = "blue") +
+  labs(title = "Number of Movies Released Over the Years",
+       x = "Year", y = "Number of Movies") +
+  theme_minimal()
+
+
+
+# Box plot of ratings over the years
+ggplot(movies_all, aes(x = factor(Year), y = Rating)) +
+  geom_boxplot() +
+  labs(title = "Box Plot of Movie Ratings Over the Years",
+       x = "Year", y = "Rating") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+head(Rating)
+
+
+d
+
+# Remove rows where Votes or Rating are NA
+movies_clean <- movies_all %>%
+  filter(!is.na(Votes) & !is.na(Rating))
+
+# Calculate the correlation between Votes and Rating
+correlation <- cor(movies_clean$Votes, movies_clean$Rating)
+
+# Print the correlation result
+print(paste("Pearson Correlation between Votes and Rating: ", round(correlation, 2)))
+
+# Scatter plot to visualize the relationship between Votes and Rating
+ggplot(movies_clean, aes(x = Votes, y = Rating)) +
+  geom_point(alpha = 0.5, color = "blue") +  # Add transparency with alpha
+  labs(title = "Scatter Plot of Votes vs. Rating",
+       x = "Number of Votes",
+       y = "Rating") +
+  theme_minimal()
+
+The correlation between movie duration and rating is 0.08 which is a low level of correlation. However it can be observed that movies with fewer votes tend to have slightly higher ratings on average.
+
+
+e
+
+# Ensure that Duration is numeric and filter out rows with NA values in Duration or Rating
+movies_clean_duration <- movies_all %>%
+  filter(!is.na(Duration) & !is.na(Rating))
+
+# Calculate the correlation between Duration and Rating
+correlation_duration <- cor(movies_clean_duration$Duration, movies_clean_duration$Rating)
+
+# Print the correlation result
+print(paste("Pearson Correlation between Duration and Rating: ", round(correlation_duration, 2)))
+
+
+# Scatter plot to visualize the relationship between Duration and Rating
+ggplot(movies_clean_duration, aes(x = Duration, y = Rating)) +
+  geom_point(alpha = 0.5, color = "green") +  # Add transparency with alpha
+  labs(title = "Scatter Plot of Duration vs. Rating",
+       x = "Duration (in minutes)",
+       y = "Rating") +
+  theme_minimal()
+
+Although the correlation is not very strong with a correlation of 0.23 we can observe that there is a slight relationship between duration and rating. Specifically, as the movie duration decreases the rating tends to increase although the relationship is not very strong.
+
+
+
+
+4
+Load the libraries again.
+
+library(rvest)
+library(dplyr)
+library(stringr)
+
+
+#URL for top 1000 Turkish movies on IMDb
+url <- "https://www.imdb.com/search/title/?title_type=feature&groups=top_1000&country_of_origin=TR&count=250&sort=user_rating,desc"
+
+#Function to scrape the top 1000 Turkish movies from IMDb
+data_html <- read_html(url)
+  
+#Extract titles
+title_names <- data_html |> html_nodes('.ipc-title__text') |> html_text()
+title_names <- tail(head(title_names,-1),-1)
+title_names <- str_split(title_names, " ", n=2)
+title_names <- unlist(lapply(title_names, function(x) {x[2]}))
+head(title_names)
+length(title_names)
+#Extract years
+year <- data_html |> html_nodes('.sc-300a8231-7.eaXxft.dli-title-metadata-item') |> html_text()
+year <- str_extract(year, "\\d{4}")
+year <- year[!is.na(year)]
+year <- as.numeric(year)
+length(year)
+#Create a data frame with Title and Year
+top_1000_turkish_movies <- tibble(
+  Title = title_names,
+  Year = year
+)
+
+#Print the first few rows
+print(head(top_1000_sorted))
+
+
+#Make the join operation
+new_top_1000_turkish_movies <- inner_join(top_1000_turkish_movies, movies_all,  by = title_names)
+#Sort movies by the rating
+top_1000_sorted <- top_1000_turkish_movies |> arrange(desc(Rating))
+print(top_1000_sorted)
+
+I tried inner_join function for it but the code did not work, but the first 11 Turkish movies in the top 1000 list are not the same as the first 11 movies in our previous ranking. This is likely because IMDb uses a special filtering method for its top 1000 list, which means not all Turkish films we saw are included in this list, and their ranking is different from the one in our previous ranking.
+
+I used ChatGPT and lecture notes for all codes(mostly ChatGPT but I created the general structure and understand it and also I made some corrections)
 
 ```{r}
 1 + 1
 ```
+

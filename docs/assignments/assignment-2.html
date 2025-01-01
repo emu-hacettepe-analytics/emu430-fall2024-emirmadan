@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>[Student/Group Full Name]’s Analytics Lab - Assignment 2</title>
+<title>Assignment 2 – Emir Madan’s Analytics Lab</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -70,19 +70,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f4976374268542797d2170b110980cfe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5741c78d222829e8741e4bcb5e520a0a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -91,12 +97,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -105,65 +141,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">[Student/Group Full Name]’s Analytics Lab</span>
+    <span class="navbar-title">Emir Madan’s Analytics Lab</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html" rel="" target="">
- <span class="menu-text">About Me</span></a>
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../posts.html" rel="" target="">
- <span class="menu-text">My Posts</span></a>
+    <a class="nav-link" href="../posts.html"> 
+<span class="menu-text">My Posts</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-emu430-coursework" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-emu430-coursework" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">EMU430 Coursework</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-emu430-coursework">    
         <li>
-    <a class="dropdown-item" href="../assignments.html" rel="" target="">
+    <a class="dropdown-item" href="../assignments.html">
  <span class="dropdown-text">Assignments</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../project.html" rel="" target="">
+    <a class="dropdown-item" href="../project.html">
  <span class="dropdown-text">Project</span></a>
   </li>  
     </ul>
   </li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto tools-wide">
-    <a href="https://twitter.com" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
-    <a href="https://linkedin.com" rel="" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/emirmadan" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://linkedin.com/in/emir-madan" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-linkedin"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assignments/assignment-2.html">Assignment 2</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assignments/assignment-2.html">Assignment 2</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -172,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -205,12 +240,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#assignment-2" id="toc-assignment-2" class="nav-link active" data-scroll-target="#assignment-2">Assignment 2</a></li>
+  <li><a href="#urls" id="toc-urls" class="nav-link" data-scroll-target="#urls">URL’s</a></li>
+  <li><a href="#extract-the-data-with-xh-ym-and-xh.-also-if-there-is-no-ym-make-the-na-value-0." id="toc-extract-the-data-with-xh-ym-and-xh.-also-if-there-is-no-ym-make-the-na-value-0." class="nav-link" data-scroll-target="#extract-the-data-with-xh-ym-and-xh.-also-if-there-is-no-ym-make-the-na-value-0.">Extract the data with xh ym and xh. Also If there is no ym make the na value 0.</a></li>
+  <li><a href="#show-first-and-last-5-movies" id="toc-show-first-and-last-5-movies" class="nav-link" data-scroll-target="#show-first-and-last-5-movies">Show first and last 5 movies</a></li>
+  <li><a href="#calculate-the-yearly-rating-averages" id="toc-calculate-the-yearly-rating-averages" class="nav-link" data-scroll-target="#calculate-the-yearly-rating-averages">Calculate the yearly rating averages</a></li>
+  <li><a href="#plot-the-average-rating-over-the-years-using-ggplot2" id="toc-plot-the-average-rating-over-the-years-using-ggplot2" class="nav-link" data-scroll-target="#plot-the-average-rating-over-the-years-using-ggplot2">Plot the average rating over the years using ggplot2</a></li>
+  <li><a href="#calculate-the-number-of-movies-per-year" id="toc-calculate-the-number-of-movies-per-year" class="nav-link" data-scroll-target="#calculate-the-number-of-movies-per-year">Calculate the number of movies per year</a></li>
+  <li><a href="#plot-the-number-of-movies-over-the-years" id="toc-plot-the-number-of-movies-over-the-years" class="nav-link" data-scroll-target="#plot-the-number-of-movies-over-the-years">Plot the number of movies over the years</a></li>
+  <li><a href="#box-plot-of-ratings-over-the-years" id="toc-box-plot-of-ratings-over-the-years" class="nav-link" data-scroll-target="#box-plot-of-ratings-over-the-years">Box plot of ratings over the years</a></li>
+  <li><a href="#remove-rows-where-votes-or-rating-are-na" id="toc-remove-rows-where-votes-or-rating-are-na" class="nav-link" data-scroll-target="#remove-rows-where-votes-or-rating-are-na">Remove rows where Votes or Rating are NA</a></li>
+  <li><a href="#calculate-the-correlation-between-votes-and-rating" id="toc-calculate-the-correlation-between-votes-and-rating" class="nav-link" data-scroll-target="#calculate-the-correlation-between-votes-and-rating">Calculate the correlation between Votes and Rating</a></li>
+  <li><a href="#print-the-correlation-result" id="toc-print-the-correlation-result" class="nav-link" data-scroll-target="#print-the-correlation-result">Print the correlation result</a></li>
+  <li><a href="#scatter-plot-to-visualize-the-relationship-between-votes-and-rating" id="toc-scatter-plot-to-visualize-the-relationship-between-votes-and-rating" class="nav-link" data-scroll-target="#scatter-plot-to-visualize-the-relationship-between-votes-and-rating">Scatter plot to visualize the relationship between Votes and Rating</a></li>
+  <li><a href="#ensure-that-duration-is-numeric-and-filter-out-rows-with-na-values-in-duration-or-rating" id="toc-ensure-that-duration-is-numeric-and-filter-out-rows-with-na-values-in-duration-or-rating" class="nav-link" data-scroll-target="#ensure-that-duration-is-numeric-and-filter-out-rows-with-na-values-in-duration-or-rating">Ensure that Duration is numeric and filter out rows with NA values in Duration or Rating</a></li>
+  <li><a href="#calculate-the-correlation-between-duration-and-rating" id="toc-calculate-the-correlation-between-duration-and-rating" class="nav-link" data-scroll-target="#calculate-the-correlation-between-duration-and-rating">Calculate the correlation between Duration and Rating</a></li>
+  <li><a href="#print-the-correlation-result-1" id="toc-print-the-correlation-result-1" class="nav-link" data-scroll-target="#print-the-correlation-result-1">Print the correlation result</a></li>
+  <li><a href="#scatter-plot-to-visualize-the-relationship-between-duration-and-rating" id="toc-scatter-plot-to-visualize-the-relationship-between-duration-and-rating" class="nav-link" data-scroll-target="#scatter-plot-to-visualize-the-relationship-between-duration-and-rating">Scatter plot to visualize the relationship between Duration and Rating</a></li>
   </ul>
 </nav>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -230,10 +281,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="assignment-2" class="level1">
 <h1>Assignment 2</h1>
+<p>#Code Chunk oluşturmaya çalışınca hata veriyor ve renderlamıyor o yüzden malesef burada kullanamadım. #2 #Let’s load libraries</p>
+<p>library(tidyverse) library(rvest) library(stringr)</p>
+</section>
+<section id="urls" class="level1">
+<h1>URL’s</h1>
+<p>url1 &lt;- “https://www.imdb.com/search/title/?title_type=feature&amp;release_date=,2009-12-31&amp;num_votes=2500,&amp;country_of_origin=TR&amp;count=250” url2 &lt;- “https://www.imdb.com/search/title/?title_type=feature&amp;release_date=2010-01-01,2023-12-31&amp;num_votes=2500,&amp;country_of_origin=TR&amp;count=250”</p>
+<p>#The function the get the datas from URL’S</p>
+<p>#Function to get the datas from URL’S get_movies &lt;- function(url) { data_html &lt;- read_html(url) Extract the datas with their CSS Selector. I found them with Inspect selection.(I tried SelectorGadget but it didn’t work on IMDB site. I don’t know the reason.) #Extract the titles title_names &lt;- data_html |&gt; html_nodes(’.ipc-title__text’) |&gt; html_text() title_names &lt;- tail(head(title_names,-1),-1) title_names &lt;- str_split(title_names, ” “, n=2) title_names &lt;- unlist(lapply(title_names, function(x) {x[2]})) #Extract the year (same CSS Selector but extract the datas with four digits) year &lt;- data_html |&gt; html_nodes(‘.sc-300a8231-7.eaXxft.dli-title-metadata-item’) |&gt; html_text() year &lt;- str_extract(year,”\d{4}“) year &lt;- year[!is.na(year)] year &lt;- as.numeric(year)</p>
+</section>
+<section id="extract-the-data-with-xh-ym-and-xh.-also-if-there-is-no-ym-make-the-na-value-0." class="level1">
+<h1>Extract the data with xh ym and xh. Also If there is no ym make the na value 0.</h1>
+<p>duration &lt;- data_html |&gt; html_nodes(‘.sc-300a8231-7.eaXxft.dli-title-metadata-item’) |&gt; html_text() duration &lt;- str_extract(duration, “\d+h \d+m|\d+h”) duration &lt;- duration[!is.na(duration)] hours &lt;- as.numeric(str_extract(duration, “\d+(?=h)”)) minutes &lt;- as.numeric(str_extract(duration, “\d+(?=m)”)) minutes[is.na(minutes)] &lt;- 0 duration &lt;- hours * 60 + minutes #Extract ratings and make them numeric. rating &lt;- data_html |&gt; html_nodes(‘.ipc-rating-star–rating’) |&gt; html_text() rating &lt;- str_extract(rating, “\d+(\.\d+)?”) rating &lt;- as.numeric(rating) #Extract votes. Remove brackets, K letter and .(dot). After that make them numeric and multiple with 1000 vote &lt;- data_html |&gt; html_nodes(‘.ipc-rating-star–voteCount’) |&gt; html_text() vote &lt;- str_squish(vote) vote &lt;- str_remove_all(vote, “\.”) vote &lt;- str_remove(vote, “^\(”) vote &lt;- str_remove(vote, “\)<span class="math inline">\(")
+  vote &lt;- str_replace(vote, "K\)</span>”, ““) vote &lt;- as.numeric(vote) vote &lt;- vote * 1000</p>
+<p>#Create data table with the vectors. movies &lt;- tibble( Title = title_names, Year = year, Duration = duration, Rating = rating, Votes = vote ) return(movies) }</p>
+<p>#We are using map_df to take the both URL’S and combine them movies_all &lt;- map_df(c(url1, url2), get_movies)</p>
+<p>#Check first rows of data head(movies_all)</p>
+<p>3 a # Sort data frame descending by Rating movies_sorted &lt;- movies_all |&gt; arrange(desc(Rating))</p>
+</section>
+<section id="show-first-and-last-5-movies" class="level1">
+<h1>Show first and last 5 movies</h1>
+<p>top_5 &lt;- movies_sorted |&gt; head(5) bottom_5 &lt;- movies_sorted |&gt; tail(5)</p>
+<p>print(“Top 5 Movies:”) print(top_5)</p>
+<p>print(“Bottom 5 Movies:”) print(bottom_5) #I watched Recep İvedik, Babam ve Oğlum and Hababam Sınıfı. I think Recep İvedik should have higher rating level instead of 4.9.</p>
+<p>b My favorites are: Babam ve Oğlum(23), A.R.O.G (120) and Her Şey Çok Güzel Olacak (30)</p>
+<p>c</p>
+<p>#Assuming movies_all contains your dataset, with columns Title, Year, Rating</p>
+</section>
+<section id="calculate-the-yearly-rating-averages" class="level1">
+<h1>Calculate the yearly rating averages</h1>
+<p>movies_all &lt;- movies_all %&gt;% group_by(Year) %&gt;% summarise(average_rating = mean(Rating, na.rm = TRUE))</p>
+</section>
+<section id="plot-the-average-rating-over-the-years-using-ggplot2" class="level1">
+<h1>Plot the average rating over the years using ggplot2</h1>
+<p>ggplot(movies_all, aes(x = Year, y = average_rating)) + geom_point() + labs(title = “Average Movie Ratings Over the Years”, x = “Year”, y = “Average Rating”) + theme_minimal()</p>
+</section>
+<section id="calculate-the-number-of-movies-per-year" class="level1">
+<h1>Calculate the number of movies per year</h1>
+<p>movies_per_year &lt;- movies_all %&gt;% group_by(Year) %&gt;% summarise(number_of_movies = n())</p>
+</section>
+<section id="plot-the-number-of-movies-over-the-years" class="level1">
+<h1>Plot the number of movies over the years</h1>
+<p>ggplot(movies_per_year, aes(x = Year, y = number_of_movies)) + geom_point(color = “blue”) + labs(title = “Number of Movies Released Over the Years”, x = “Year”, y = “Number of Movies”) + theme_minimal()</p>
+</section>
+<section id="box-plot-of-ratings-over-the-years" class="level1">
+<h1>Box plot of ratings over the years</h1>
+<p>ggplot(movies_all, aes(x = factor(Year), y = Rating)) + geom_boxplot() + labs(title = “Box Plot of Movie Ratings Over the Years”, x = “Year”, y = “Rating”) + theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1)) head(Rating)</p>
+<p>d</p>
+</section>
+<section id="remove-rows-where-votes-or-rating-are-na" class="level1">
+<h1>Remove rows where Votes or Rating are NA</h1>
+<p>movies_clean &lt;- movies_all %&gt;% filter(!is.na(Votes) &amp; !is.na(Rating))</p>
+</section>
+<section id="calculate-the-correlation-between-votes-and-rating" class="level1">
+<h1>Calculate the correlation between Votes and Rating</h1>
+<p>correlation &lt;- cor(movies_clean<span class="math inline">\(Votes, movies_clean\)</span>Rating)</p>
+</section>
+<section id="print-the-correlation-result" class="level1">
+<h1>Print the correlation result</h1>
+<p>print(paste(“Pearson Correlation between Votes and Rating:”, round(correlation, 2)))</p>
+</section>
+<section id="scatter-plot-to-visualize-the-relationship-between-votes-and-rating" class="level1">
+<h1>Scatter plot to visualize the relationship between Votes and Rating</h1>
+<p>ggplot(movies_clean, aes(x = Votes, y = Rating)) + geom_point(alpha = 0.5, color = “blue”) + # Add transparency with alpha labs(title = “Scatter Plot of Votes vs.&nbsp;Rating”, x = “Number of Votes”, y = “Rating”) + theme_minimal()</p>
+<p>The correlation between movie duration and rating is 0.08 which is a low level of correlation. However it can be observed that movies with fewer votes tend to have slightly higher ratings on average.</p>
+<p>e</p>
+</section>
+<section id="ensure-that-duration-is-numeric-and-filter-out-rows-with-na-values-in-duration-or-rating" class="level1">
+<h1>Ensure that Duration is numeric and filter out rows with NA values in Duration or Rating</h1>
+<p>movies_clean_duration &lt;- movies_all %&gt;% filter(!is.na(Duration) &amp; !is.na(Rating))</p>
+</section>
+<section id="calculate-the-correlation-between-duration-and-rating" class="level1">
+<h1>Calculate the correlation between Duration and Rating</h1>
+<p>correlation_duration &lt;- cor(movies_clean_duration<span class="math inline">\(Duration, movies_clean_duration\)</span>Rating)</p>
+</section>
+<section id="print-the-correlation-result-1" class="level1">
+<h1>Print the correlation result</h1>
+<p>print(paste(“Pearson Correlation between Duration and Rating:”, round(correlation_duration, 2)))</p>
+</section>
+<section id="scatter-plot-to-visualize-the-relationship-between-duration-and-rating" class="level1">
+<h1>Scatter plot to visualize the relationship between Duration and Rating</h1>
+<p>ggplot(movies_clean_duration, aes(x = Duration, y = Rating)) + geom_point(alpha = 0.5, color = “green”) + # Add transparency with alpha labs(title = “Scatter Plot of Duration vs.&nbsp;Rating”, x = “Duration (in minutes)”, y = “Rating”) + theme_minimal()</p>
+<p>Although the correlation is not very strong with a correlation of 0.23 we can observe that there is a slight relationship between duration and rating. Specifically, as the movie duration decreases the rating tends to increase although the relationship is not very strong.</p>
+<p>4 Load the libraries again.</p>
+<p>library(rvest) library(dplyr) library(stringr)</p>
+<p>#URL for top 1000 Turkish movies on IMDb url &lt;- “https://www.imdb.com/search/title/?title_type=feature&amp;groups=top_1000&amp;country_of_origin=TR&amp;count=250&amp;sort=user_rating,desc”</p>
+<p>#Function to scrape the top 1000 Turkish movies from IMDb data_html &lt;- read_html(url)</p>
+<p>#Extract titles title_names &lt;- data_html |&gt; html_nodes(’.ipc-title__text’) |&gt; html_text() title_names &lt;- tail(head(title_names,-1),-1) title_names &lt;- str_split(title_names, ” “, n=2) title_names &lt;- unlist(lapply(title_names, function(x) {x[2]})) head(title_names) length(title_names) #Extract years year &lt;- data_html |&gt; html_nodes(‘.sc-300a8231-7.eaXxft.dli-title-metadata-item’) |&gt; html_text() year &lt;- str_extract(year,”\d{4}“) year &lt;- year[!is.na(year)] year &lt;- as.numeric(year) length(year) #Create a data frame with Title and Year top_1000_turkish_movies &lt;- tibble( Title = title_names, Year = year )</p>
+<p>#Print the first few rows print(head(top_1000_sorted))</p>
+<p>#Make the join operation new_top_1000_turkish_movies &lt;- inner_join(top_1000_turkish_movies, movies_all, by = title_names) #Sort movies by the rating top_1000_sorted &lt;- top_1000_turkish_movies |&gt; arrange(desc(Rating)) print(top_1000_sorted)</p>
+<p>I tried inner_join function for it but the code did not work, but the first 11 Turkish movies in the top 1000 list are not the same as the first 11 movies in our previous ranking. This is likely because IMDb uses a special filtering method for its top 1000 list, which means not all Turkish films we saw are included in this list, and their ranking is different from the one in our previous ranking.</p>
+<p>I used ChatGPT and lecture notes for all codes(mostly ChatGPT but I created the general structure and understand it and also I made some corrections)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -286,6 +430,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -354,13 +525,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -395,18 +568,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -438,11 +600,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -452,8 +651,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -465,7 +673,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -509,6 +839,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -534,6 +865,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -595,7 +952,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../assignments/assignment-1.html" class="pagination-link">
+      <a href="../assignments/assignment-1.html" class="pagination-link" aria-label="Assignment 1">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Assignment 1</span>
       </a>          
   </div>
@@ -608,12 +965,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Hacettepe IE - EMU 430 - Fall 2023</div>
+    <div class="nav-footer-center">
+<p>Hacettepe IE - EMU430 - 2024 Fall</p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
